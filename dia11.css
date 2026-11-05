@@ -1,0 +1,662 @@
+/* ==========================================================
+   DIA 11 - Aniversário de namoro
+   ----------------------------------------------------------
+   ÍNDICE
+   1. Variáveis (cores)
+   2. Configuração geral
+   3. Layout principal (contador | carrossel + texto)
+   4. Contador
+   5. Carrossel de fotos
+   6. Mensagem (quadradinho fofo)
+   7. Celular (max-width: 600px)
+   8. Estilos reservados (não usados no HTML atual)
+   ========================================================== */
+
+
+/* ==========================================================
+   1. VARIÁVEIS
+   ========================================================== */
+:root {
+    --fundo-pagina: #fffaf3;
+    --fundo-rosa-claro: #fff5f8;
+    --borda-rosa: #ffb6c1;
+    --borda-contador: #ffccd5;
+    --rosa-destaque: #ff4d6d;
+    --rosa-titulo: #d63384;
+    --amarelo: #e8d633;
+    --texto: #4a4a4a;
+    --texto-suave: #666;
+}
+
+
+/* ==========================================================
+   2. CONFIGURAÇÃO GERAL
+   ========================================================== */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--fundo-pagina);
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+}
+
+
+/* ==========================================================
+   3. LAYOUT PRINCIPAL
+   Contador à esquerda | Carrossel + texto à direita
+   ========================================================== */
+.bloco-foto-e-texto {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 20px;
+    max-width: 1000px;
+    margin: 40px auto;
+}
+
+.coluna-direita {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    flex: 1;
+    min-width: 0;
+}
+
+
+/* ==========================================================
+   4. CONTADOR
+   ========================================================== */
+.contador-caixa {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 0 0 110px;
+}
+
+.tempo-item {
+    background-color: var(--fundo-rosa-claro);
+    border: 1px solid var(--borda-contador);
+    border-radius: 12px;
+    padding: 10px;
+    text-align: center;
+}
+
+.tempo-item span {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--rosa-destaque);
+}
+
+.tempo-item p {
+    margin: 5px 0 0;
+    font-size: 0.8rem;
+    color: var(--texto-suave);
+    text-transform: uppercase;
+}
+
+
+/* ==========================================================
+   5. CARROSSEL DE FOTOS
+   ========================================================== */
+.carrossel-wrap {
+    position: relative;
+    width: 100%;
+    padding: 0 40px;
+}
+
+.carrossel-fotos {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    padding: 10px 5px;
+    scrollbar-width: none;
+}
+
+.carrossel-fotos::-webkit-scrollbar {
+    display: none;
+}
+
+.card-foto {
+    flex: 0 0 200px;
+    scroll-snap-align: start;
+    background: #fff;
+    padding: 10px;
+    border: 2px solid var(--amarelo);
+    border-radius: 12px;
+    box-shadow: 0 10px 24px rgba(82, 41, 24, 0.12);
+    text-align: center;
+    transition: transform 0.2s ease;
+}
+
+.card-foto:hover {
+    transform: translateY(-4px);
+}
+
+.card-foto img {
+    display: block;
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* Setas */
+.seta {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 35px;
+    height: 35px;
+    border: none;
+    border-radius: 50%;
+    background-color: var(--amarelo);
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.seta-esq {
+    left: 0;
+}
+
+.seta-dir {
+    right: 0;
+}
+
+
+/* ==========================================================
+   6. MENSAGEM (quadradinho fofo)
+   ========================================================== */
+.quadradinho-fofo {
+    width: 100%;
+    margin: 0;
+    padding: 25px;
+    background-color: var(--fundo-rosa-claro);
+    border: 2px dashed var(--borda-rosa);
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    color: var(--texto);
+    line-height: 1.7;
+}
+
+.quadradinho-fofo h2 {
+    margin-top: 0;
+    color: var(--rosa-titulo);
+    text-align: center;
+}
+
+.quadradinho-fofo p {
+    margin: 0 0 1em;
+    font-size: 15px;
+    text-align: justify;
+}
+
+.quadradinho-fofo p:last-child {
+    margin-bottom: 0;
+}
+
+
+/* ==========================================================
+   7. CELULAR
+   Contador em linha no topo, depois carrossel e texto
+   ========================================================== */
+@media (max-width: 600px) {
+
+    body {
+        padding: 12px;
+    }
+
+    .bloco-foto-e-texto {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+        margin: 20px auto;
+    }
+
+    .coluna-direita {
+        gap: 20px;
+    }
+
+    /* Contador */
+    .contador-caixa {
+        flex: none;
+        flex-direction: row;
+        gap: 7px;
+    }
+
+    .tempo-item {
+        flex: 1;
+        padding: 8px 4px;
+    }
+
+    .tempo-item span {
+        font-size: 1.1rem;
+    }
+
+    .tempo-item p {
+        font-size: 0.65rem;
+    }
+
+    /* Carrossel */
+    .carrossel-wrap {
+        padding: 0 25px;
+    }
+
+    .card-foto {
+        flex: 0 0 150px;
+    }
+
+    .card-foto img {
+        height: 150px;
+    }
+
+    .seta {
+        width: 28px;
+        height: 28px;
+        font-size: 14px;
+    }
+
+    /* Mensagem */
+    .quadradinho-fofo {
+        padding: 18px;
+    }
+
+    .quadradinho-fofo h2 {
+        font-size: 20px;
+    }
+
+    .quadradinho-fofo p {
+        font-size: 14px;
+    }
+}
+
+
+/* ==========================================================
+   8. ESTILOS RESERVADOS
+   Vieram do CSS antigo e não são usados no HTML atual.
+   Mantidos caso você queira reaproveitar depois.
+   ========================================================== */
+.cartao-amor {
+    width: 100%;
+    max-width: 650px;
+    margin: 0 auto;
+    padding: 30px;
+    background-color: #ffffff;
+    border: 2px dashed var(--borda-rosa);
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(255, 182, 193, 0.4);
+}
+
+.titulo {
+    margin-bottom: 20px;
+    color: var(--rosa-titulo);
+    font-size: 1.8rem;
+    text-align: center;
+}
+
+.bloco-fotos {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+    min-width: 0;
+}
+
+.minha-foto {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    object-fit: cover;
+}
+
+.mensagem-fofa {
+    margin-top: 15px;
+    color: #555;
+    font-size: 0.95rem;
+    font-style: italic;
+    text-align: center;
+}
+
+.formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+@media (max-width: 600px) {
+
+    .cartao-amor {
+        padding: 15px;
+    }
+
+    .titulo {
+        font-size: 1.5rem;
+    }
+}
+
+
+/* SURPRESAS DO NOSSO AMOR */
+
+.surpresas {
+    text-align: center;
+    max-width: 850px;
+    margin: 40px auto;
+    padding: 20px;
+    color: #5c2535;
+}
+
+.surpresas h2 {
+    color: #c2185b;
+    font-size: 27px;
+}
+
+.subtitulo {
+    margin-bottom: 30px;
+}
+
+.surpresa-card {
+    background: #fff0f5;
+    border: 1px solid #f3c2d2;
+    border-radius: 20px;
+    padding: 25px;
+    margin: 25px 0;
+    box-shadow: 0 4px 12px #00000010;
+}
+
+.surpresa-card h3 {
+    color: #c2185b;
+}
+
+.cartas {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.surpresas button {
+    background: #d6336c;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 13px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: 0.3s;
+}
+
+.surpresas button:hover {
+    background: #a91d50;
+    transform: scale(1.03);
+}
+
+#mensagemCarta,
+#mensagemCofre,
+#motivoAmor {
+    color: #a91d50;
+    font-weight: bold;
+    line-height: 1.7;
+    margin-top: 20px;
+}
+
+#senhaCofre {
+    padding: 12px;
+    border: 1px solid #e5a5ba;
+    border-radius: 10px;
+    margin: 10px;
+    text-align: center;
+}
+
+.pote {
+    font-size: 65px;
+    margin: 15px;
+}
+
+/* ADAPTAÇÃO PARA CELULAR */
+
+@media (max-width: 600px) {
+    .surpresas {
+        padding: 12px;
+    }
+
+    .surpresa-card {
+        padding: 18px;
+    }
+
+    .surpresas h2 {
+        font-size: 23px;
+    }
+
+    .surpresas button {
+        width: 100%;
+    }
+}
+
+
+/* NOVAS SURPRESAS */
+
+.novas-surpresas {
+    max-width: 850px;
+    margin: 40px auto;
+    padding: 20px;
+    text-align: center;
+    color: #642c42;
+}
+
+.surpresa-nova {
+    background: #fff0f5;
+    border: 1px solid #f2c4d3;
+    border-radius: 22px;
+    padding: 25px;
+    margin: 30px 0;
+    box-shadow: 0 5px 15px #00000010;
+}
+
+.surpresa-nova h2 {
+    color: #c2185b;
+}
+
+.surpresa-nova button {
+    background: #d6336c;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 13px 20px;
+    margin: 10px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: 0.3s;
+}
+
+.surpresa-nova button:hover {
+    background: #a91d50;
+    transform: scale(1.04);
+}
+
+
+/* CARTÃO DE RASPAR */
+
+.cartao-raspar {
+    position: relative;
+    width: 100%;
+    max-width: 350px;
+    height: 150px;
+    margin: 20px auto;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.premio-raspar {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffe0eb;
+    color: #b01853;
+    font-size: 21px;
+    font-weight: bold;
+    padding: 15px;
+}
+
+#rasparCanvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    touch-action: none;
+    cursor: crosshair;
+}
+
+.dica {
+    font-size: 13px;
+    color: #a35a76;
+}
+
+
+/* QUIZ */
+
+#opcoesQuiz {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 450px;
+    margin: 20px auto;
+}
+
+#opcoesQuiz button {
+    width: 100%;
+    margin: 0;
+}
+
+#resultadoQuiz {
+    font-weight: bold;
+    color: #b01853;
+    min-height: 25px;
+}
+
+
+/* CARTA DO FUTURO */
+
+.envelope-futuro {
+    font-size: 65px;
+    margin: 15px;
+}
+
+#cartaFutura {
+    line-height: 1.8;
+    color: #a91d50;
+    font-weight: bold;
+    white-space: pre-line;
+}
+
+
+/* PRESENTE */
+
+.caixa-presente {
+    font-size: 90px;
+    margin: 20px;
+    cursor: pointer;
+    transition: transform 0.5s;
+}
+
+.caixa-presente.aberta {
+    transform: rotate(-15deg) scale(1.2);
+}
+
+.conteudo-presente {
+    display: none;
+    animation: aparecer 1s ease;
+}
+
+.conteudo-presente img {
+    width: 100%;
+    max-width: 300px;
+    border-radius: 15px;
+    margin: 15px auto;
+}
+
+.conteudo-presente.visivel {
+    display: block;
+}
+
+
+/* FINAL SECRETO */
+
+.mensagem-final {
+    display: none;
+    padding: 20px;
+    animation: aparecer 1.5s ease;
+}
+
+.mensagem-final.visivel {
+    display: block;
+}
+
+.mensagem-final p {
+    line-height: 1.9;
+}
+
+.coracoes-final {
+    font-size: 30px;
+    animation: pulsar 1.5s infinite;
+}
+
+
+/* ANIMAÇÕES */
+
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulsar {
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+}
+
+
+/* CELULAR */
+
+@media (max-width: 600px) {
+
+    .novas-surpresas {
+        padding: 10px;
+    }
+
+    .surpresa-nova {
+        padding: 18px 12px;
+    }
+
+    .surpresa-nova button {
+        max-width: 100%;
+    }
+
+    .cartao-raspar {
+        max-width: 100%;
+    }
+}

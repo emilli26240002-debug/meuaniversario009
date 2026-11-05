@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nosso Dia Especial ❤️</title>
+    <link rel="stylesheet" href="dia11.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #fffaf3;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .formulario {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 20px;
+            border: 2px solid #e22908;
+            border-radius: 10px;
+            background: #fff;
+            width: 250px;
+            z-index: 10;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .formulario label {
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .formulario input {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .formulario button {
+            padding: 10px;
+            background-color: #e22908;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .formulario button:hover {
+            background-color: #c02206;
+        }
+
+        .erro {
+            color: #c0392b;
+            font-size: 12px;
+            margin-top: 5px;
+            text-align: center;
+        }
+
+        /* Corações flutuantes normais no fundo */
+        .coracao-flutuante {
+            position: absolute;
+            bottom: -20px;
+            color: #e63946;
+            font-size: 20px;
+            animation: subirCoracao 4s linear infinite;
+            user-select: none;
+            z-index: 1;
+        }
+
+        @keyframes subirCoracao {
+            0% {
+                transform: translateY(0) scale(0.8);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-105vh) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        /* Efeito de explosão de corações ao acertar a senha */
+        .coracao-explosao {
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            font-size: 24px;
+            animation: explodir 1s ease-out forwards;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        @keyframes explodir {
+            0% {
+                transform: translate(-50%, -50%) scale(0.5);
+                opacity: 1;
+            }
+            100% {
+                /* Cada coração vai disparar para uma direção aleatória via JS */
+                transform: translate(var(--x), var(--y)) scale(1.8);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+   <form class="formulario" id="meuFormulario"> 
+        <h2 style="text-align: center; font-size: 16px; margin: 0 0 5px; color: #e63946;">
+            Entrar <span style="color: red; font-size: 14px;">❤️</span>
+        </h2>
+
+        <label for="nome">Nome</label>
+        <input type="text" id="nome" name="nome" required>
+        
+        <label for="senha">Senha</label>
+        <input type="password" id="senha" name="senha" required>
+        
+        <button type="submit">Acessar</button>
+        <p id="msgErro" class="erro"></p>
+   </form>
+
+   <script>
+        const SENHA_CORRETA = "11072025"; 
+
+        document.getElementById('meuFormulario').addEventListener('submit', function(event) {
+            event.preventDefault(); 
+
+            var senhaDigitada = document.getElementById('senha').value;
+            var msgErro = document.getElementById('msgErro');
+
+            if (senhaDigitada !== SENHA_CORRETA) {
+                msgErro.textContent = "Senha incorreta! Tente novamente.";
+            } else {
+                msgErro.textContent = "";
+                
+                // DISPARA A EXPLOSÃO DE CORAÇÕES AO ACERTAR!
+                dispararExplosaoDeCoraçoes();
+
+                // Aguarda 1.2 segundos a animação acontecer antes de mudar de página
+                setTimeout(() => {
+                    window.location.href = "index.html";
+                }, 1200);
+            }
+        });
+
+        // Função que cria a chuva/explosão de corações
+        function dispararExplosaoDeCoraçoes() {
+            // Cria 35 corações de uma vez só
+            for (let i = 0; i < 35; i++) {
+                const coracao = document.createElement('div');
+                coracao.classList.add('coracao-explosao');
+                coracao.innerHTML = '❤️';
+
+                // Define direções aleatórias para espalhar os corações pelo ecrã inteiro
+                const angulo = Math.random() * Math.PI * 2;
+                const distancia = Math.random() * 300 + 50; // Quão longe voam
+                const x = Math.cos(angulo) * distancia + 'px';
+                const y = Math.sin(angulo) * distancia + 'px';
+
+                coracao.style.setProperty('--x', x);
+                coracao.style.setProperty('--y', y);
+
+                document.body.appendChild(coracao);
+
+                // Remove o coração da memória após 1 segundo
+                setTimeout(() => {
+                    coracao.remove();
+                }, 1000);
+            }
+        }
+
+        // Corações flutuantes normais no fundo da página
+        function criarCoracao() {
+            const coracao = document.createElement('div');
+            coracao.classList.add('coracao-flutuante');
+            coracao.innerHTML = '❤️';
+            coracao.style.left = Math.random() * 100 + 'vw';
+            const tamanho = Math.random() * 15 + 10;
+            coracao.style.fontSize = tamanho + 'px';
+            const duracao = Math.random() * 3 + 3;
+            coracao.style.animationDuration = duracao + 's';
+
+            document.body.appendChild(coracao);
+
+            setTimeout(() => {
+                coracao.remove();
+            }, duracao * 1000);
+        }
+
+        setInterval(criarCoracao, 300);
+   </script>
+
+</body>
+</html>

@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Olá, amor da minha vida ❤️</title>
+
+    <link rel="stylesheet" href="dia11.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #fffaf3;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        /* CONTADOR À ESQUERDA | CARROSSEL + TEXTO À DIREITA */
+        .bloco-foto-e-texto {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            gap: 20px;
+            max-width: 1000px;
+            margin: 40px auto;
+        }
+
+        /* CONTADOR À ESQUERDA */
+        .contador-caixa {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            flex: 0 0 110px;
+        }
+
+        .tempo-item {
+            background-color: #fff5f8;
+            border: 1px solid #ffccd5;
+            border-radius: 12px;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .tempo-item span {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ff4d6d;
+        }
+
+        .tempo-item p {
+            margin: 5px 0 0;
+            font-size: 0.8rem;
+            color: #666;
+            text-transform: uppercase;
+        }
+
+        /* COLUNA DA DIREITA (carrossel em cima, texto embaixo) */
+        .coluna-direita {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        /* CARROSSEL */
+        .carrossel-wrap {
+            position: relative;
+            width: 100%;
+            padding: 0 40px;
+        }
+
+        .carrossel-fotos {
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            padding: 10px 5px;
+            scrollbar-width: none;
+        }
+
+        .carrossel-fotos::-webkit-scrollbar {
+            display: none;
+        }
+
+        .card-foto {
+            flex: 0 0 200px;
+            scroll-snap-align: start;
+            background: #fff;
+            padding: 10px;
+            border: 2px solid #e8d633;
+            border-radius: 12px;
+            box-shadow: 0 10px 24px rgba(82, 41, 24, 0.12);
+            text-align: center;
+            transition: transform 0.2s ease;
+        }
+
+        .card-foto:hover {
+            transform: translateY(-4px);
+        }
+
+        .card-foto img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 8px;
+            display: block;
+        }
+
+        /* SETAS */
+        .seta {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 35px;
+            height: 35px;
+            border: none;
+            border-radius: 50%;
+            background-color: #e8d633;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 2;
+        }
+
+        .seta-esq {
+            left: 0;
+        }
+
+        .seta-dir {
+            right: 0;
+        }
+
+        /* TEXTO EMBAIXO DO CARROSSEL */
+        .quadradinho-fofo {
+            background-color: #fff5f8;
+            border: 2px dashed #ffb6c1;
+            border-radius: 15px;
+            padding: 25px;
+            color: #4a4a4a;
+            width: 100%;
+            margin: 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            line-height: 1.7;
+        }
+
+        .quadradinho-fofo h2 {
+            color: #d63384;
+            text-align: center;
+            margin-top: 0;
+        }
+
+        .quadradinho-fofo p {
+            font-size: 15px;
+            text-align: justify;
+            margin: 0 0 1em;
+        }
+
+        .quadradinho-fofo p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* ESTILOS EXTRAS PARA AS SEÇÕES DE SUPORTE */
+        .novas-surpresas, .surpresas {
+            max-width: 1000px;
+            margin: 30px auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .surpresa-nova, .surpresa-card, .pergunta-amor {
+            background-color: #ffffff;
+            border: 2px dashed #ffb6c1;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+
+        .conteudo-presente, .mensagem-final {
+            display: none;
+            margin-top: 15px;
+        }
+
+        /* ADAPTAÇÃO PARA CELULAR */
+        @media (max-width: 600px) {
+            body {
+                padding: 12px;
+            }
+
+            .bloco-foto-e-texto {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 15px;
+                margin: 20px auto;
+            }
+
+            .contador-caixa {
+                flex: none;
+                flex-direction: row;
+                gap: 7px;
+            }
+
+            .tempo-item {
+                flex: 1;
+                padding: 8px 4px;
+            }
+
+            .tempo-item span {
+                font-size: 1.1rem;
+            }
+
+            .tempo-item p {
+                font-size: 0.65rem;
+            }
+
+            .coluna-direita {
+                gap: 20px;
+            }
+
+            .carrossel-wrap {
+                padding: 0 25px;
+            }
+
+            .card-foto {
+                flex: 0 0 150px;
+            }
+
+            .card-foto img {
+                height: 150px;
+            }
+
+            .seta {
+                width: 28px;
+                height: 28px;
+                font-size: 14px;
+            }
+
+            .quadradinho-fofo {
+                padding: 18px;
+            }
+
+            .quadradinho-fofo h2 {
+                font-size: 20px;
+            }
+
+            .quadradinho-fofo p {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="bloco-foto-e-texto">
+
+        <!-- CONTADOR À ESQUERDA -->
+        <div class="contador-caixa">
+            <div class="tempo-item">
+                <span id="dias">00</span>
+                <p>Dias</p>
+            </div>
+
+            <div class="tempo-item">
+                <span id="horas">00</span>
+                <p>Horas</p>
+            </div>
+
+            <div class="tempo-item">
+                <span id="minutos">00</span>
+                <p>Minutos</p>
+            </div>
+
+            <div class="tempo-item">
+                <span id="segundos">00</span>
+                <p>Segundos</p>
+            </div>
+        </div>
+
+        <!-- COLUNA DA DIREITA: CARROSSEL + TEXTO EMBAIXO -->
+        <div class="coluna-direita">
+
+            <!-- CARROSSEL DE FOTOS -->
+            <div class="carrossel-wrap">
+                <button class="seta seta-esq" type="button"
+                    onclick="document.querySelector('.carrossel-fotos').scrollBy({left: -220, behavior: 'smooth'})">
+                    &#10094;
+                </button>
+
+                <div class="carrossel-fotos">
+                    <div class="card-foto"><img src="img1.jpeg" alt="Foto 1"></div>
+                    <div class="card-foto"><img src="imag2.jpeg" alt="Foto 2"></div>
+                    <div class="card-foto"><img src="imagem3.jpeg" alt="Foto 3"></div>
+                    <div class="card-foto"><img src="imag4.jpeg" alt="Foto 4"></div>
+                    <div class="card-foto"><img src="imag5.jpeg" alt="Foto 5"></div>
+                    <div class="card-foto"><img src="imag6.jpeg" alt="Foto 6"></div>
+                    <div class="card-foto"><img src="ima7.jpeg" alt="Foto 7"></div>
+                    <div class="card-foto"><img src="imag8.jpeg" alt="Foto 8"></div>
+                    <div class="card-foto"><img src="imag9.jpeg" alt="Foto 9"></div>
+                </div>
+
+                <button class="seta seta-dir" type="button"
+                    onclick="document.querySelector('.carrossel-fotos').scrollBy({left: 220, behavior: 'smooth'})">
+                    &#10095;
+                </button>
+            </div>
+
+            <!-- MENSAGEM EMBAIXO DO CARROSSEL -->
+            <div class="quadradinho-fofo">
+                <h2>Feliz aniversário de namoro, meu amor! ❤️</h2>
+                <p>Meu amor, feliz aniversário de namoro! ❤️</p>
+                <p>Hoje é dia de comemorar a nossa história, tudo o que vivemos e o amor que nos trouxe até aqui. Às vezes, fico pensando em como tudo começou, no dia 11 de julho de 2025, quando começamos a nos conhecer através de um aplicativo, sem imaginar que aquela conversa se tornaria algo tão especial.</p>
+                <p>E como esquecer o dia 29 de setembro de 2025, quando finalmente nos encontramos pessoalmente? Aquele banco da praça, de frente para a BR, minha calça roxa e minha blusa preta… Uma lembrança simples, mas que guardo com muito carinho no coração. Foi ali que tudo deixou de ser apenas mensagens e se tornou real.</p>
+                <p>Meu bocó, você não faz ideia do quanto sou feliz por ter você na minha vida. Amo seu jeito de cuidar de mim, sua atenção, seu carinho e esse coração tão bom. Amo quando você consegue me fazer sorrir até nos dias em que estou estressada e quando demonstra que se importa comigo nas pequenas coisas.</p>
+                <p>Sei que nem todos os dias são perfeitos e que temos nossas diferenças, mas, mesmo assim, continuo escolhendo você. Quero que a gente continue aprendendo a cuidar um do outro, respeitando nossas diferenças e construindo uma história cheia de amor, companheirismo e felicidade.</p>
+                <p>Obrigada por cada abraço, cada sorriso, cada momento especial e por fazer parte da minha vida. Você é muito mais do que meu namorado: é meu companheiro, meu amigo e uma das pessoas que mais fazem meu coração feliz.</p>
+                <p>Quando penso no futuro, imagino nós dois mais velhinhos, lembrando de tudo o que vivemos, rindo das nossas histórias e percebendo que valeu a pena cada momento. Quero construir uma vida ao seu lado, realizar nossos sonhos e continuar encontrando motivos para me apaixonar por você todos os dias.</p>
+                <p>Que Deus continue abençoando nosso amor, protegendo nossos sentimentos e guiando nossos passos. Que venham muitos outros dias 11, muitos aniversários de namoro e muitas lembranças lindas para guardarmos juntos.</p>
+                <p>Eu te amo por quem você é, pelo seu coração e por tudo o que ainda podemos viver. Obrigada por ser esse amor tão especial que tenho a sorte de chamar de meu.</p>
+                <p>Feliz nosso dia, meu amor! Que a nossa história continue sendo escrita com muito carinho, respeito e amor. Eu te amo, meu bocó, hoje, amanhã e em todos os dias que a vida permitir que a gente compartilhe. ❤️</p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- MÚSICA -->
+    <audio id="musicaFundo" autoplay loop>
+        <source src="musica00.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- 1. RASPE E DESCUBRA -->
+    <section class="novas-surpresas">
+        <div class="surpresa-nova">
+            <h2>💕 Uma surpresa para você</h2>
+            <p>Raspe o cartão e descubra o que preparei!</p>
+            <div class="cartao-raspar">
+                <div class="premio-raspar">Eu escolheria você mil vezes! ❤️</div>
+                <canvas id="rasparCanvas"></canvas>
+            </div>
+            <p class="dica">Passe o dedo ou o mouse sobre cái cartão.</p>
+        </div>
+
+        <!-- 2. QUIZ DO NAMORO -->
+        <div class="surpresa-nova">
+            <h2>🥰 Quanto você conhece nossa história?</h2>
+            <p id="perguntaQuiz"></p>
+            <div id="opcoesQuiz"></div>
+            <p id="resultadoQuiz"></p>
+            <button id="proximaPergunta">Próxima pergunta ❤️</button>
+        </div>
+
+        <!-- 3. CARTA PARA O FUTURO -->
+        <div class="surpresa-nova">
+            <h2>💌 Uma carta para o nosso futuro</h2>
+            <p>Escrevi uma cartinha para você abrir daqui a um ano.</p>
+            <div class="envelope-futuro">💌</div>
+            <button id="abrirCartaFutura">Abrir minha carta</button>
+            <p id="cartaFutura"></p>
+        </div>
+
+        <!-- 4. PRESENTE SURPRESA -->
+        <div class="surpresa-nova">
+            <h2>🎁 Tem um presente para você!</h2>
+            <p>Será que você consegue descobrir o que é?</p>
+            <div id="caixaPresente" class="caixa-presente">🎁</div>
+            <button id="abrirPresente">Abrir presente ❤️</button>
+            <div id="conteudoPresente" class="conteudo-presente">
+                <h3>Surpresa, meu amor! ❤️</h3>
+                <img src="nossa-foto.jpg" alt="Nossa lembrança especial" style="max-width: 100%; border-radius: 8px;">
+                <p>Meu presente é poder viver tantos momentos especiais ao seu lado. Eu te amo!</p>
+            </div>
+        </div>
+
+        <!-- 5. FINAL SECRETO -->
+        <div class="surpresa-nova final-amor">
+            <h2>✨ Chegamos ao final?</h2>
+            <p>Ainda tenho uma última coisinha para você...</p>
+            <button id="revelarFinal">Descobrir minha última surpresa 💗</button>
+            <div id="mensagemFinal" class="mensagem-final">
+                <h2>Meu eterno bocó! ❤️</h2>
+                <p>Se eu pudesse voltar ao início de tudo, escolheria conhecer você novamente. Obrigada por fazer parte da minha história. Que esse seja apenas o começo de uma vida inteira de lembranças juntos!</p>
+                <div class="coracoes-final">❤️ 💗 ❤️ 💗 ❤️</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SURPRESAS DO NOSSO AMOR -->
+    <section class="surpresas">
+        <h2>Um pouquinho do meu amor por você ❤️</h2>
+        <p class="subtitulo">Preparei algumas surpresas. Espero que goste, meu amor!</p>
+
+        <!-- CARTAS SURPRESA -->
+        <div class="surpresa-card">
+            <h3>💌 Cartinhas para você</h3>
+            <p>Escolha uma cartinha e descubra o que tenho para te dizer.</p>
+            <div class="cartas" style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+                <button class="carta" data-mensagem="Meu amor, se algum dia você duvidar do quanto é especial, lembre-se de que existe alguém que agradece todos os dias por ter você na vida. Eu te amo! ❤️">💌 Abra quando sentir saudade</button>
+                <button class="carta" data-mensagem="Meu bocó, mesmo nos dias difíceis, quero que saiba que estou aqui. Quero ser seu carinho, seu abraço e sua companhia. ❤️">💗 Abra quando estiver triste</button>
+                <button class="carta" data-mensagem="Se você chegou até aqui, quero que saiba que eu escolheria conhecer você novamente, viver nossa história novamente e me apaixonar por você mais uma vez.">🥹 Abra quando precisar de amor</button>
+            </div>
+            <p id="mensagemCarta" style="margin-top: 15px; font-weight: bold; color: #d63384;"></p>
+        </div>
+
+        <!-- COFRE DO AMOR -->
+        <div class="surpresa-card">
+            <h3>🔐 Cofre do nosso amor</h3>
+            <p>Existe uma lembrança muito especial que guarda a chave do meu coração.</p>
+            <input type="password" id="senhaCofre" placeholder="Digite a senha..." style="padding: 8px; border-radius: 8px; border: 1px solid #ccc;">
+            <button id="abrirCofre">Desbloquear ❤️</button>
+            <p id="mensagemCofre"></p>
+        </div>
+
+        <!-- POTE DE MOTIVOS -->
+        <div class="surpresa-card">
+            <h3>❤️ Um potinho de amor</h3>
+            <p>Aqui estão alguns dos motivos pelos quais eu amo você.</p>
+            <div class="pote" style="font-size: 2rem;">🫙</div>
+            <button id="sortearMotivo">Tirar um bilhetinho 💌</button>
+            <p id="motivoAmor" style="margin-top: 15px;"></p>
+        </div>
+    </section>
+
+
+    <script src="script.js"></script>
+</body>
+
+</html>
